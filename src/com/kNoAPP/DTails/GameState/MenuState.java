@@ -22,7 +22,7 @@ public class MenuState extends GameState {
 	public MenuState(GameStateManager gsm) {
 		this.gsm = gsm;
 		try {
-			bg = new Background("/Background/menubg.gif", 1);
+			bg = new Background("/Backgrounds/menubg.gif", 1);
 			bg.setVector(-0.1, 0);
 			
 			titleColor = new Color(128, 0, 0);
@@ -74,13 +74,13 @@ public class MenuState extends GameState {
 			select();
 		}
 		if(k == KeyEvent.VK_UP) {
-			if(currentChoice != options.length - 1) {
-				currentChoice++;
+			if(currentChoice != 0) {
+				currentChoice--;
 			}
 		}
 		if(k == KeyEvent.VK_DOWN) {
-			if(currentChoice != 0) {
-				currentChoice--;
+			if(currentChoice != options.length - 1) {
+				currentChoice++;
 			}
 		}
 	}
