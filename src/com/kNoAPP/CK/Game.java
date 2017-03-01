@@ -1,4 +1,4 @@
-package com.kNoAPP.DTails;
+package com.kNoAPP.CK;
 
 import javax.swing.JFrame;
 

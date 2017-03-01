@@ -1,4 +1,4 @@
-package com.kNoAPP.DTails;
+package com.kNoAPP.CK;
 
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -9,7 +9,7 @@ import java.awt.image.BufferedImage;
 
 import javax.swing.JPanel;
 
-import com.kNoAPP.DTails.GameState.GameStateManager;
+import com.kNoAPP.CK.GameState.GameStateManager;
 
 @SuppressWarnings("serial")
 public class GamePanel extends JPanel implements Runnable, KeyListener {
@@ -17,7 +17,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 	//Settings
 	public static final int WIDTH = 320;
 	public static final int HEIGHT = 240;
-	public static final int SCALE = 2;
+	public static final int SCALE = 6;
 	
 	//Window Stuffs
 	private Thread thread;
@@ -105,5 +105,9 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 	
 	public void keyReleased(KeyEvent key) {
 		gsm.keyReleased(key.getKeyCode());
+	}
+	
+	public static double[] center() {
+		return new double[]{WIDTH/2, HEIGHT/2};
 	}
 }

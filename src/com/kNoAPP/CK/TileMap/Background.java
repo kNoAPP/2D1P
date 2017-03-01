@@ -1,11 +1,11 @@
-package com.kNoAPP.DTails.TileMap;
+package com.kNoAPP.CK.TileMap;
 
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
 import javax.imageio.ImageIO;
 
-import com.kNoAPP.DTails.GamePanel;
+import com.kNoAPP.CK.GamePanel;
 
 public class Background {
 
@@ -30,6 +30,10 @@ public class Background {
 		this.y = (y * moveScale) % GamePanel.HEIGHT;
 	}
 	
+	public String getPostion() {
+		return "X: " + (int)x + " Y: " + (int)y;
+	}
+	
 	public void setVector(double dx, double dy) {
 		this.dx = dx;
 		this.dy = dy;
@@ -38,6 +42,14 @@ public class Background {
 	public void update() {
 		x += dx;
 		y += dy;
+		
+		//Reset the Image
+		if(Math.abs((int)x) == GamePanel.WIDTH) {
+			x = 0;
+		}
+		if(Math.abs((int)y) == GamePanel.HEIGHT) {
+			y = 0;
+		}
 	}
 	
 	//Draws 1-2 Images as Needed

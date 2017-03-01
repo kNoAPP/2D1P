@@ -1,4 +1,4 @@
-package com.kNoAPP.DTails.GameState;
+package com.kNoAPP.CK.GameState;
 
 import java.awt.Graphics2D;
 

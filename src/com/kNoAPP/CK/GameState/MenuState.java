@@ -1,11 +1,12 @@
-package com.kNoAPP.DTails.GameState;
+package com.kNoAPP.CK.GameState;
 
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 
-import com.kNoAPP.DTails.TileMap.Background;
+import com.kNoAPP.CK.GamePanel;
+import com.kNoAPP.CK.TileMap.Background;
 
 public class MenuState extends GameState {
 	
@@ -44,7 +45,7 @@ public class MenuState extends GameState {
 		
 		g.setColor(titleColor);
 		g.setFont(titleFont);
-		g.drawString("Dragon Tale", 80, 70);
+		g.drawString("Cloud Kingdom", (int)GamePanel.center()[0] - 105, (int)GamePanel.center()[1] - 45);
 		
 		g.setFont(font);
 		for(int i=0; i<options.length; i++) {
@@ -53,7 +54,7 @@ public class MenuState extends GameState {
 			} else {
 				g.setColor(Color.RED);
 			}
-			g.drawString(options[i], 145, 140 + i * 15);
+			g.drawString(options[i], (int)GamePanel.center()[0] - 15, (int)GamePanel.center()[1] + 10 + i * 15);
 		}
 	}
 	
