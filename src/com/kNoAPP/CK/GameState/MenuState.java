@@ -22,6 +22,7 @@ public class MenuState extends GameState {
 	
 	public MenuState(GameStateManager gsm) {
 		this.gsm = gsm;
+		init();
 		try {
 			bg = new Background("/Backgrounds/menubg.gif", 1);
 			bg.setVector(-0.1, 0);
@@ -60,7 +61,7 @@ public class MenuState extends GameState {
 	
 	private void select() {
 		if(currentChoice == 0) {
-			
+			gsm.setState(GameStateManager.LEVEL1STATE);
 		}
 		if(currentChoice == 1) {
 			
