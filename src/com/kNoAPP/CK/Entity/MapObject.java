@@ -7,20 +7,20 @@ import com.kNoAPP.CK.TileMap.Tile;
 import com.kNoAPP.CK.TileMap.TileMap;
 
 public abstract class MapObject {
-
-	//Tiles
+	
+	//TileMap
 	protected TileMap tileMap;
 	protected int tileSize;
 	protected double xmap;
 	protected double ymap;
 	
-	//Position/Vector
+	//Placement
 	protected double x;
 	protected double y;
 	protected double dx;
 	protected double dy;
 	
-	//Bounds
+	//Barriers
 	protected int width;
 	protected int height;
 	
@@ -28,7 +28,7 @@ public abstract class MapObject {
 	protected int cwidth;
 	protected int cheight;
 	
-	//Collision Regular
+	//Collisions
 	protected int currRow;
 	protected int currCol;
 	protected double xdest;
@@ -54,7 +54,7 @@ public abstract class MapObject {
 	protected boolean jumping;
 	protected boolean falling;
 	
-	//Movement Attribs
+	//Attribs
 	protected double moveSpeed;
 	protected double maxSpeed;
 	protected double stopSpeed;
@@ -65,7 +65,7 @@ public abstract class MapObject {
 	
 	public MapObject(TileMap tm) {
 		tileMap = tm;
-		tileSize = tm.getTileSize();
+		tileSize = tm.getTileSize(); 
 	}
 	
 	public boolean intersects(MapObject o) {
@@ -79,23 +79,21 @@ public abstract class MapObject {
 	}
 	
 	public void calculateCorners(double x, double y) {
-        int leftTile = (int)(x - cwidth / 2) / tileSize;
-        int rightTile = (int)(x + cwidth / 2 - 1) / tileSize;
-        int topTile = (int)(y - cheight / 2) / tileSize;
-        int bottomTile = (int)(y + cheight / 2 - 1) / tileSize;
-        if(topTile < 0 || bottomTile >= tileMap.getNumRows() || leftTile < 0 || rightTile >= tileMap.getNumCols()) {
-            topLeft = topRight = bottomLeft = bottomRight = false;
-            return;
-        }
-        int tl = tileMap.getType(topTile, leftTile);
-        int tr = tileMap.getType(topTile, rightTile);
-        int bl = tileMap.getType(bottomTile, leftTile);
-        int br = tileMap.getType(bottomTile, rightTile);
-        topLeft = tl == Tile.BLOCKED;
-        topRight = tr == Tile.BLOCKED;
-        bottomLeft = bl == Tile.BLOCKED;
-        bottomRight = br == Tile.BLOCKED;
-}
+		int leftTile = (int)(x - cwidth / 2) / tileSize;
+		int rightTile = (int)(x + cwidth / 2 - 1) / tileSize;
+		int topTile = (int)(y - cheight / 2) / tileSize;
+		int bottomTile = (int)(y + cheight / 2 - 1) / tileSize;
+		
+		int tl = tileMap.getType(topTile, leftTile);
+		int tr = tileMap.getType(topTile, rightTile);
+		int bl = tileMap.getType(bottomTile, leftTile);
+		int br = tileMap.getType(bottomTile, rightTile);
+		
+		topLeft = tl == Tile.BLOCKED;
+		topRight = tr == Tile.BLOCKED;
+		bottomLeft = bl == Tile.BLOCKED;
+		bottomRight = br == Tile.BLOCKED;
+	}
 	
 	public void checkTileMapCollision() {
 		currCol = (int)x / tileSize;
@@ -136,46 +134,48 @@ public abstract class MapObject {
 			}
 		}
 		if(dx > 0) {
-			if(topRight | bottomRight) {
+			if(topRight || bottomRight) {
 				dx = 0;
 				xtemp = (currCol + 1) * tileSize - cwidth / 2;
+			} else {
+				xtemp += dx;
 			}
 		}
 		
 		if(!falling) {
-			calculateCorners(x, ydest - 1);
+			calculateCorners(x, ydest + 1);
 			if(!bottomLeft && !bottomRight) {
 				falling = true;
 			}
 		}
+		
 	}
 	
-	public int getX() {
-		return (int)x;
+	public int getx() { 
+		return (int)x; 
 	}
 	
-	public int getY() {
-		return (int)y;
+	public int gety() { 
+		return (int)y; 
 	}
 	
 	public int getWidth() {
-		return width;
+		return width; 
 	}
 	
-	public int getHeight() {
-		return height;
+	public int getHeight() { 
+		return height; 
 	}
 	
-	public int getCWidth() {
-		return cwidth;
+	public int getCWidth() { 
+		return cwidth; 
 	}
 	
-	public int getCHeight() {
-		return cheight;
+	public int getCHeight() { 
+		return cheight; 
 	}
 	
-	//Global
-	public void setPostion(double x, double y) {
+	public void setPosition(double x, double y) {
 		this.x = x;
 		this.y = y;
 	}
@@ -185,34 +185,50 @@ public abstract class MapObject {
 		this.dy = dy;
 	}
 	
-	//Local
-	public void setMapPostition() {
+	public void setMapPosition() {
 		xmap = tileMap.getX();
 		ymap = tileMap.getY();
 	}
 	
-	public void setLeft(boolean b) {
-		left = b;
+	public void setLeft(boolean b) { 
+		left = b; 
 	}
 	
-	public void setRight(boolean b) {
-		right = b;
+	public void setRight(boolean b) { 
+		right = b; 
 	}
 	
-	public void setUp(boolean b) {
-		up = b;
+	public void setUp(boolean b) { 
+		up = b; 
 	}
 	
-	public void setDown(boolean b) {
-		down = b;
+	public void setDown(boolean b) { 
+		down = b; 
 	}
 	
-	public void setJumping(boolean b) {
-		jumping = b;
+	public void setJumping(boolean b) { 
+		jumping = b; 
 	}
 	
 	public boolean notOnScreen() {
-		return x + xmap + width < 0 || x + xmap - width > GamePanel.WIDTH || 
-				y + ymap + height < 0 || y + ymap - height > GamePanel.HEIGHT;
+		return x + xmap + width < 0 || x + xmap - width > GamePanel.WIDTH 
+				|| y + ymap + height < 0 || y + ymap - height > GamePanel.HEIGHT;
 	}
+	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
